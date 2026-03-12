@@ -1,0 +1,57 @@
+@if(toy()) {
+<div class="details-wrapper">
+    <mat-card class="details-card">
+        <mat-card-content>
+            <img [src]="utils.getImageUrl(toy()!)" class="details-img" [alt]="toy()?.name">
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="details-card">
+        <mat-card-content>
+            <h1>{{toy()?.name}}</h1>
+            <p class="description-text">{{toy()?.description}}</p>
+            
+            <mat-list>
+                <mat-list-item>
+                    <mat-icon matListItemIcon>payments</mat-icon>
+                    <div matListItemTitle>Cena</div>
+                    <div matListItemLine>{{toy()?.price}} RSD</div>
+                </mat-list-item>
+
+                <mat-list-item>
+                    <mat-icon matListItemIcon>child_care</mat-icon>
+                    <div matListItemTitle>Uzrast</div>
+                    <div matListItemLine>{{toy()?.ageGroup?.name}} ({{toy()?.ageGroup?.description}})</div>
+                </mat-list-item>
+
+                <mat-list-item>
+                    <mat-icon matListItemIcon>category</mat-icon>
+                    <div matListItemTitle>Tip igračke</div>
+                    <div matListItemLine>{{toy()?.type?.name}}</div>
+                </mat-list-item>
+
+                <mat-list-item>
+                    <mat-icon matListItemIcon>face</mat-icon>
+                    <div matListItemTitle>Namenjeno za</div>
+                    <div matListItemLine style="text-transform: capitalize;">{{toy()?.targetGroup}}</div>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+
+        
+    </mat-card>
+</div>
+
+<mat-card class="info-card">
+    <mat-card-header>
+        <mat-card-title>Dodatne informacije</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p>Proizvod proizveden: {{toy()?.productionDate}}</p>
+        <p>Tip: {{toy()?.type?.description}}</p>
+    </mat-card-content>
+</mat-card>
+
+} @else {
+    <app-loading />
+}

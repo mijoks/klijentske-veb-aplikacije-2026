@@ -6,6 +6,7 @@ export interface ToyModel{
     targetGroup: "svi" | 'dečak' | 'devojčica',
     productionDate: string,
     price: number,
+    imageUrl: string,
     ageGroup: {
       ageGroupId: number,
       name: string,

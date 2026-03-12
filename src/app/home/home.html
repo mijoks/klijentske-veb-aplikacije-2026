@@ -1,5 +1,25 @@
-<p>home works!</p>
+@if(toys().length>0){
+<div class="toy-grid">
+  @for (toy of toys(); track toy.toyId) {
+  <mat-card class="toy-card">
+    <mat-card-header>
+      <mat-card-title>{{ toy.name }}</mat-card-title>
+      <mat-card-subtitle>{{ toy.type.name }}</mat-card-subtitle>
+    </mat-card-header>
 
-<button matButton color="primary">
-  BUTTON
-</button>
+    <mat-card-content>
+      <p>{{ toy.description }}</p>
+      <p><strong>Cena: {{ toy.price }} RSD</strong></p>
+      <p>Kategorija: {{ toy.targetGroup }}</p>
+    </mat-card-content>
+    <img [src]="utils.getImageUrl(toy)" [alt]="toy.name">
+    <mat-card-actions>
+      <a [routerLink]="`/details/${toy.toyId}`" matButton>
+                <mat-icon fontIcon="read_more" /> POGLEDAJ
+            </a>
+    </mat-card-actions>
+  </mat-card>}
+  </div>
+}@else {
+  <app-loading />
+}
