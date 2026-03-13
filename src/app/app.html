@@ -1,22 +1,29 @@
 <mat-toolbar color="primary">
   <span>
-    <strong>TOY STORE</strong>
+    <strong>KVA2026</strong>
   </span>
   <span class="spacer"></span>
   <a routerLink="/" matButton>
     <mat-icon fontIcon="home" /> Home
   </a>
-  <a matButton>
+  <a routerLink="/about" matButton>
     <mat-icon fontIcon="info" /> About
   </a>
- 
-  <a  matButton>
+  @if(authService.getActiveUser()) {
+  <a routerLink="/cart" matButton>
     <mat-icon fontIcon="shopping_cart" /> Cart
   </a>
-  <a  matButton>
+  <a routerLink="/user" matButton>
     <mat-icon fontIcon="admin_panel_settings" /> Account
   </a>
-  
+  <button matButton (click)="doLogout()">
+    <mat-icon fontIcon="logout" /> Logout
+  </button>
+  } @else {
+  <a routerLink="/login" matButton>
+    <mat-icon fontIcon="login" /> Login
+  </a>
+  }
  
 </mat-toolbar>
 <div class="wrapper">
