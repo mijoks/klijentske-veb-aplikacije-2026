@@ -1,0 +1,61 @@
+/* Stilovi za SweetAlert2 dugmiće - dodaj u styles.css */
+
+/* Kontejner za dugmiće da dobiju razmak */
+.mat-swal-actions {
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Osnovni stil za oba dugmeta */
+.mat-swal-confirm, .mat-swal-cancel {
+    padding: 10px 24px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    min-width: 100px;
+    outline: none;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif; /* Ili font koji koristiš */
+}
+
+/* Potvrdi dugme (Primarno plavo) */
+.mat-swal-confirm {
+    background-color: #3f51b5 !important;
+    color: white !important;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 
+                0 2px 2px 0 rgba(0,0,0,.14), 
+                0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.mat-swal-confirm:hover {
+    background-color: #303f9f !important;
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 
+                0 4px 5px 0 rgba(0,0,0,.14), 
+                0 1px 10px 0 rgba(0,0,0,.12);
+}
+
+/* Odustani dugme (Svetlo sivo/Stroked izgled) */
+.mat-swal-cancel {
+    background-color: #f5f5f5 !important;
+    color: #333 !important;
+    border: 1px solid #ddd !important;
+}
+
+.mat-swal-cancel:hover {
+    background-color: #e0e0e0 !important;
+}
+
+/* Dodatno: Sređivanje popup prozora da izgleda kao Material Card */
+.mat-swal-popup {
+    border-radius: 16px !important;
+    padding: 20px !important;
+    font-family: 'Roboto', sans-serif;
+}
+
+.mat-swal-title {
+    font-size: 1.5rem !important;
+    color: #222 !important;
+}
