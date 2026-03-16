@@ -15,7 +15,7 @@
     <img [src]="utils.getImageUrl(toy)" [alt]="toy.name">
     <mat-card-actions>
       <a [routerLink]="`/details/${toy.toyId}`" matButton>
-                <mat-icon fontIcon="read_more" /> POGLEDAJ
+                <mat-icon fontIcon="read_more" /> {{ isLoggedIn ? 'POGLEDAJ I KUPI' : 'POGLEDAJ' }}
             </a>
     </mat-card-actions>
   </mat-card>}

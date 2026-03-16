@@ -1,5 +1,6 @@
 import { UserModel } from "../models/user.model"
 import { ToyModel } from "../models/toy.model"
+import { OrderModel } from "../models/order.model"
 
 const USERS = 'users'
 const ACTIVE = 'active'
@@ -14,7 +15,7 @@ export class AuthService {
             lastName: 'User',
             phone: '0653093267',
             address: 'Danijelova 32',
-            toys:[]
+            toys: []
 
         }
         if (localStorage.getItem(USERS) == null) {
@@ -53,7 +54,7 @@ export class AuthService {
                 u.lastName = newUserData.lastName
                 u.address = newUserData.address
                 u.phone = newUserData.phone
-                u.toy = newUserData.toy
+                u.toys = newUserData.toys
             }
         }
         localStorage.setItem(USERS, JSON.stringify(users))
@@ -85,6 +86,51 @@ export class AuthService {
 
         return false
     }
+    static getOrdersByState(state: 'r' | 'p' | 'o'): OrderModel[] {
+        const user = this.getActiveUser();
+
+        // Proveravamo da li user postoji i da li ima niz igračaka
+        if (!user || !user.toys) {
+            return [];
+        }
+
+        // Eksplicitno kažemo TypeScript-u da je user.toys zapravo niz OrderModel-a
+        const orders = user.toys as OrderModel[];
+
+        // Sada će prepoznati .status bez greške
+        return orders.filter(order => order.status === state);
+    }
+    static payOrders() {
+        const user = this.getActiveUser();
+
+        if (user && user.toys) {
+            const updatedToys = (user.toys as OrderModel[]).map(toy => {
+                if (toy.status === 'r') {
+                    return { ...toy, status: 'p' as const };
+                }
+                return toy;
+            });
+
+            // Ovde dodaj 'as any' da TypeScript prestane da se žali na prazan niz
+            user.toys = updatedToys as any;
+
+            this.updateActiveUser(user);
+        }
+    }
+    static cancelOrder(createdAt: number) {
+    const user = this.getActiveUser();
+
+    if (user && user.toys) {
+        // Zadržavamo sve igračke OSIM one koja ima prosleđeni createdAt
+        const updatedToys = (user.toys as OrderModel[]).filter(toy => toy.createdAt !== createdAt);
+        
+        // Ponovo koristimo 'as any' ako ti TypeScript i dalje pravi problem sa [] tipom
+        user.toys = updatedToys as any;
+
+        // Snimamo promene u localStorage
+        this.updateActiveUser(user);
+    }
+}
 }
 
 

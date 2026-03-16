@@ -91,3 +91,49 @@ mat-card-actions button {
     font-weight: 600;
 }
 
+.purchase-actions{
+    margin-top: 20px;
+}
+.toy-rating {
+    display: flex;         /* Ređa elemente (zvezdice, broj, tekst) u isti red */
+    align-items: center;    /* Centrira ih vertikalno da budu u istoj ravni */
+    gap: 12px;             /* Pravi razmak između zvezdica i brojeva */
+    
+    margin-left: auto;     /* Gura ceo blok na desnu stranu kartice */
+    padding: 10px 15px;
+}
+
+/* Stil za kontejner sa zvezdicama */
+.toy-rating div {
+    display: flex;
+    align-items: center;
+    gap: 4px;              /* Razmak između svake pojedinačne zvezdice */
+    color: #ffd700;
+}
+
+/* Povećavamo same zvezdice */
+.toy-rating mat-icon {
+    font-size: 28px;       /* Veća ikonica */
+    width: 28px;           /* Širina prostora za ikonicu */
+    height: 28px;          /* Visina prostora za ikonicu */
+}
+
+/* Povećavamo broj prosečne ocene */
+.toy-rating span:first-of-type {
+    font-size: 1.4rem;     /* Veći broj (npr. 4.5) */
+    font-weight: bold;
+    color: #333;
+}
+
+/* Povećavamo tekst broja ocena */
+.toy-rating span:last-of-type {
+    font-size: 1rem;       /* Tekst (npr. (3 ocena)) */
+    color: #777;
+}
+
+/* Stil za poruku kada nema ocena */
+.no-rating {
+    font-size: 1rem;
+    color: #999;
+    font-style: italic;
+}

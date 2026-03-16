@@ -1,16 +1,34 @@
 @if(toy()) {
 <div class="details-wrapper">
-    <mat-card class="details-card">
+    <mat-card class="details-card image-section">
         <mat-card-content>
             <img [src]="utils.getImageUrl(toy()!)" class="details-img" [alt]="toy()?.name">
         </mat-card-content>
+        @let rating = getRating();
+        <div class="toy-rating">
+            @if (rating.average) {
+                <div style=>
+                    @for (star of [1,2,3,4,5]; track star) {
+                        <mat-icon >
+                            {{ star <= +rating.average ? 'star' : 'star_border' }}
+                        </mat-icon>
+                    }
+                </div>
+                <span >{{ rating.average }}</span>
+                <span >({{ rating.count }} ocena)</span>
+            } @else {
+                <span >Igračka još uvek nema ocena</span>
+            }
+        </div>
     </mat-card>
 
-    <mat-card class="details-card">
+    <mat-card class="details-card info-section">
         <mat-card-content>
             <h1>{{toy()?.name}}</h1>
+            
             <p class="description-text">{{toy()?.description}}</p>
             
+
             <mat-list>
                 <mat-list-item>
                     <mat-icon matListItemIcon>payments</mat-icon>
@@ -33,25 +51,51 @@
                 <mat-list-item>
                     <mat-icon matListItemIcon>face</mat-icon>
                     <div matListItemTitle>Namenjeno za</div>
-                    <div matListItemLine style="text-transform: capitalize;">{{toy()?.targetGroup}}</div>
+                    <div matListItemLine class="capitalize">{{toy()?.targetGroup}}</div>
                 </mat-list-item>
             </mat-list>
-        </mat-card-content>
 
-        
+            <mat-divider></mat-divider>
+
+            <div class="purchase-actions">
+                @if (isLoggedIn) {
+                <div class="buy-controls">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Količina</mat-label>
+                        <input matInput type="number" min="1" [ngModel]="quantity()"
+                            (ngModelChange)="quantity.set($event)">
+                    </mat-form-field>
+
+
+                </div>
+                <button mat-raised-button color="accent" (click)="buyToy()">
+                    <mat-icon>shopping_basket</mat-icon>
+                    Dodaj u korpu
+                </button>
+                <div>
+
+                </div>
+                } @else {
+                <div class="login-prompt">
+                    <p>Prijavite se da biste kupili ovaj proizvod.</p>
+                    <button mat-flat-button color="primary" routerLink="/login">Prijavi se</button>
+                </div>
+                }
+            </div>
+        </mat-card-content>
     </mat-card>
 </div>
 
-<mat-card class="info-card">
+<mat-card class="extra-info-card">
     <mat-card-header>
         <mat-card-title>Dodatne informacije</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <p>Proizvod proizveden: {{toy()?.productionDate}}</p>
-        <p>Tip: {{toy()?.type?.description}}</p>
+        <p><strong>Proizvod proizveden:</strong> {{toy()?.productionDate}}</p>
+        <p><strong>Tip:</strong> {{toy()?.type?.description}}</p>
     </mat-card-content>
 </mat-card>
 
 } @else {
-    <app-loading />
+<app-loading />
 }

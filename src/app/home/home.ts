@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Utils } from '../utils';
 import { Loading } from '../loading/loading';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -36,4 +37,7 @@ export class Home {
       console.error('Greška pri učitavanju igračaka:', error);
     }
   }
+  get isLoggedIn(): boolean {
+  return !!AuthService.getActiveUser();
+}
 }
