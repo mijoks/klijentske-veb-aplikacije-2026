@@ -1,4 +1,3 @@
-/* Glavni kontejner koji drži dve kartice */
 .details-wrapper {
     display: flex;
     gap: 24px;
@@ -7,7 +6,6 @@
     padding: 0 20px;
 }
 
-/* Kartice */
 .details-card {
     flex: 1;
     border-radius: 12px;
@@ -16,11 +14,10 @@
     background: #ffffff;
 }
 
-/* Stil za sliku */
 .details-img {
     width: 100%;
-    height: 450px; /* Fiksna visina za simetriju */
-    object-fit: contain; /* Da se slika ne rasteže */
+    height: 450px; 
+    object-fit: contain; 
     
     display: block;
     transition: transform 0.3s ease;
@@ -30,7 +27,7 @@
     transform: scale(1.02);
 }
 
-/* Tekstualni sadržaj */
+
 h1 {
     font-size: 2.5rem;
     font-weight: 700;
@@ -48,7 +45,7 @@ h1 {
     padding-left: 15px;
 }
 
-/* Stilovi za listu detalja */
+
 mat-list-item {
     height: auto !important;
     padding: 12px 0 !important;
@@ -67,7 +64,7 @@ mat-list-item:last-child {
     margin-right: 16px;
 }
 
-/* Donja info kartica */
+
 .info-card {
     max-width: 1200px;
     margin: 20px auto;
@@ -76,7 +73,7 @@ mat-list-item:last-child {
     
 }
 
-/* Dugme za kupovinu */
+
 mat-card-actions {
     padding: 24px !important;
     display: flex;
@@ -95,43 +92,41 @@ mat-card-actions button {
     margin-top: 20px;
 }
 .toy-rating {
-    display: flex;         /* Ređa elemente (zvezdice, broj, tekst) u isti red */
-    align-items: center;    /* Centrira ih vertikalno da budu u istoj ravni */
-    gap: 12px;             /* Pravi razmak između zvezdica i brojeva */
+    display: flex;         
+    align-items: center;    
+    gap: 12px;             
     
-    margin-left: auto;     /* Gura ceo blok na desnu stranu kartice */
+    margin-left: auto;    
     padding: 10px 15px;
 }
 
-/* Stil za kontejner sa zvezdicama */
+
 .toy-rating div {
     display: flex;
     align-items: center;
-    gap: 4px;              /* Razmak između svake pojedinačne zvezdice */
+    gap: 4px;             
     color: #ffd700;
 }
 
-/* Povećavamo same zvezdice */
+
 .toy-rating mat-icon {
-    font-size: 28px;       /* Veća ikonica */
-    width: 28px;           /* Širina prostora za ikonicu */
-    height: 28px;          /* Visina prostora za ikonicu */
+    font-size: 28px;     
+    width: 28px;           
+    height: 28px;          
 }
 
-/* Povećavamo broj prosečne ocene */
 .toy-rating span:first-of-type {
-    font-size: 1.4rem;     /* Veći broj (npr. 4.5) */
+    font-size: 1.4rem;    
     font-weight: bold;
     color: #333;
 }
 
-/* Povećavamo tekst broja ocena */
+
 .toy-rating span:last-of-type {
-    font-size: 1rem;       /* Tekst (npr. (3 ocena)) */
+    font-size: 1rem;       
     color: #777;
 }
 
-/* Stil za poruku kada nema ocena */
 .no-rating {
     font-size: 1rem;
     color: #999;

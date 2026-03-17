@@ -1,15 +1,13 @@
-/* Glavni kontejner */
+
 .user-wrapper {
   display: grid;
-  /* Pravimo 3 kolone: leva i desna su iste, srednja se prilagođava */
   grid-template-columns: 1fr 1.2fr 1fr; 
   gap: 24px;
   padding: 30px;
   background-color: #f8f9fa;
-  align-items: start; /* Da se kartice ne rastežu po visini ako nisu pune */
+  align-items: start; 
 }
 
-/* Osnovni stil kartica */
 .user-card {
   background: white !important;
   border-radius: 16px !important;
@@ -18,7 +16,6 @@
   overflow: hidden;
 }
 
-/* Naslovi u karticama */
 .user-card h1 {
   font-size: 1.25rem;
   font-weight: 700;
@@ -27,21 +24,17 @@
   padding: 10px 0;
 }
 
-/* Srednja kolona koja sadrži dve kartice (General i Password) */
-/* U HTML-u imaš <div> oko ove dve kartice, pa mu dajemo razmak */
 .user-wrapper > div {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-/* Input polja */
 .full-width {
   width: 100%;
   margin-bottom: 5px;
 }
 
-/* Avatar sekcija */
 .user-details {
   text-align: center;
 }
@@ -63,25 +56,23 @@
   object-fit: cover;
 }
 
-/* Dugmići */
 mat-card-actions {
   padding: 16px !important;
   background-color: #fcfcfc;
 }
 
 .mat-mdc-button {
-  width: 100%; /* Dugme se širi celom širinom kartice radi lakšeg klika */
+  width: 100%; 
   letter-spacing: 0.5px;
 }
 
-/* Lista preporučenih igračaka */
 mat-list-item {
   border-radius: 8px;
   transition: background 0.2s;
   --mdc-list-list-item-hover-state-layer-color: transparent;
     --mdc-list-list-item-focus-state-layer-color: transparent;
     background: transparent !important;
-    height: auto !important; /* Dozvoljava da sadržaj diktira visinu */
+    height: auto !important;
     padding: 12px 0 !important;
     border-bottom: 1px solid #f0f0f0;
 }
@@ -91,7 +82,6 @@ mat-list-item:hover {
   background: #f0f2ff;
 }
 
-/* Responzivnost: Na tabletima 2 kolone, na mobilnom 1 kolona */
 @media (max-width: 1100px) {
   .user-wrapper {
     grid-template-columns: 1fr 1fr;

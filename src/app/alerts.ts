@@ -9,7 +9,6 @@ export const matCustomClass = {
     actions: 'mat-swal-actions'
 }
 
-// Konfiguracija za male "Toast" poruke koje se same gase
 const Toast = Swal.mixin({
     toast: true,
     position: 'top',
@@ -38,13 +37,13 @@ export class Alerts {
         const result = await Swal.fire({
             title: "Da li ste sigurni?",
             text: text,
-            icon: "warning", // Warning ikonica je prirodnija za potvrdu
+            icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Potvrdi",
             cancelButtonText: "Odustani",
-            heightAuto: false, // Sprečava skakanje stranice
+            heightAuto: false, 
             customClass: matCustomClass,
-            buttonsStyling: false // Gasimo default stilove da bi naš CSS radio
+            buttonsStyling: false 
         });
 
         if (result.isConfirmed) {

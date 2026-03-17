@@ -74,15 +74,15 @@ export class Details {
       status: 'r'
     };
 
-    // Rešenje za "never" grešku:
+   
     if (!user.toys || !Array.isArray(user.toys)) {
       user.toys = [] as any;
     }
 
-    // Cast-ujemo u any ili OrderModel[] da bi dozvolio push
+    
     (user.toys as any[]).push(order);
 
-    // Čuvamo u localStorage
+    
     AuthService.updateActiveUser(user);
 
     Alerts.success(`Dodato u korpu: ${this.quantity()} ${this.quantity() === 1 ? 'komad' : 'komada'}`);

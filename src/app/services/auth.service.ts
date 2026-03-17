@@ -55,6 +55,7 @@ export class AuthService {
                 u.address = newUserData.address
                 u.phone = newUserData.phone
                 u.toys = newUserData.toys
+                u.toy = newUserData.toy
             }
         }
         localStorage.setItem(USERS, JSON.stringify(users))
@@ -89,15 +90,11 @@ export class AuthService {
     static getOrdersByState(state: 'r' | 'p' | 'o'): OrderModel[] {
         const user = this.getActiveUser();
 
-        // Proveravamo da li user postoji i da li ima niz igračaka
         if (!user || !user.toys) {
             return [];
         }
-
-        // Eksplicitno kažemo TypeScript-u da je user.toys zapravo niz OrderModel-a
         const orders = user.toys as OrderModel[];
 
-        // Sada će prepoznati .status bez greške
         return orders.filter(order => order.status === state);
     }
     static payOrders() {
@@ -110,8 +107,6 @@ export class AuthService {
                 }
                 return toy;
             });
-
-            // Ovde dodaj 'as any' da TypeScript prestane da se žali na prazan niz
             user.toys = updatedToys as any;
 
             this.updateActiveUser(user);
@@ -119,15 +114,14 @@ export class AuthService {
     }
     static cancelOrder(createdAt: number) {
     const user = this.getActiveUser();
-
     if (user && user.toys) {
-        // Zadržavamo sve igračke OSIM one koja ima prosleđeni createdAt
-        const updatedToys = (user.toys as OrderModel[]).filter(toy => toy.createdAt !== createdAt);
-        
-        // Ponovo koristimo 'as any' ako ti TypeScript i dalje pravi problem sa [] tipom
+        const updatedToys = (user.toys as OrderModel[]).map(toy => {
+            if (toy.createdAt === createdAt) {
+                return { ...toy, status: 'o' as any };
+            }
+            return toy;
+        });
         user.toys = updatedToys as any;
-
-        // Snimamo promene u localStorage
         this.updateActiveUser(user);
     }
 }

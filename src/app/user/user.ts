@@ -33,8 +33,8 @@ import { Utils } from '../utils';
 export class User {
   
   public activeUser = AuthService.getActiveUser();
-  toys = signal<ToyModel[]>([]); // Svi nazivi za select listu
-  recommended = signal<ToyModel[]>([]); // Preporučene igračke
+  toys = signal<ToyModel[]>([]);
+  recommended = signal<ToyModel[]>([]); 
   oldPassword = '';
   newPassword = '';
   passRepeat = '';
@@ -45,19 +45,33 @@ export class User {
       return;
     }
 
-    // Učitaj sve igračke za dropdown
     ToyService.getToys().then(rsp => {
       this.toys.set(rsp.data);
       
-      // Filtriraj preporuke: igračke koje su istog tipa kao korisnikova omiljena
+
       const favoriteToyName = this.activeUser?.toy;
       const favToy = rsp.data.find(t => t.name === favoriteToyName);
       
       if (favToy) {
         const recs = rsp.data.filter(t => t.type.typeId === favToy.type.typeId && t.name !== favToy.name);
-        this.recommended.set(recs.slice(0, 3)); // Uzmi top 3 preporuke
+        this.recommended.set(recs.slice(0, 3));
       }
     });
+  }
+  filterRecommendations() {
+    const allToys = this.toys();
+    const favoriteToyName = this.activeUser?.toy;
+    
+    const favToy = allToys.find(t => t.name === favoriteToyName);
+    
+    if (favToy) {
+      const recs = allToys.filter(t => 
+        t.type.typeId === favToy.type.typeId && t.name !== favToy.name
+      );
+      this.recommended.set(recs.slice(0, 3));
+    } else {
+      this.recommended.set([]);
+    }
   }
 
   getAvatarUrl() {
@@ -65,10 +79,9 @@ export class User {
   }
 
   updateUser() {
-    Alerts.confirm('Da li ste sigurni da želite da ažurirate podatke?', () => {
-      // Ovde bi trebalo da imaš metodu u AuthService koja ažurira localStorage
+    Alerts.confirm('Da li ste sigurni da zelite da azurirate podatke?', () => {
       AuthService.updateActiveUser(this.activeUser!);
-      Alerts.success('Podaci su uspešno ažurirani');
+      Alerts.success('Podaci su uspesno azurirani');
     });
   }
 

@@ -1,7 +1,7 @@
 @if(getOrders().length > 0) {
 <mat-card class="mb-3">
     <mat-card-header>
-        <mat-card-title>Igračke u korpi</mat-card-title>
+        <mat-card-title>Rezervisane igračke</mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <table mat-table [dataSource]="getOrders()" class="mat-elevation-z8">
@@ -28,7 +28,7 @@
 
             <ng-container matColumnDef="price">
                 <th mat-header-cell *matHeaderCellDef> Cena </th>
-                <td mat-cell *matCellDef="let order"> {{order.price}} RSD </td>
+                <td mat-cell *matCellDef="let order"> {{order.price}}  </td>
             </ng-container>
 
             <ng-container matColumnDef="total">
@@ -40,10 +40,8 @@
                 <th mat-header-cell *matHeaderCellDef> Opcije </th>
                 <td mat-cell *matCellDef="let order">
 
-                    <button mat-icon-button color="warn" (click)="removeOrder(order)" title="Ukloni">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                    <button mat-icon-button color="primary" (click)="modifyOrder(order)" title="Izmijeni">
+                    
+                    <button mat-icon-button color="primary" (click)="modifyOrder(order)" >
                         <mat-icon>edit</mat-icon>
                     </button>
                 </td>
@@ -65,8 +63,8 @@
 <mat-card class="mb-3">
     <mat-card-content style="padding: 40px; text-align: center;">
         <mat-icon style="font-size: 48px; width: 48px; height: 48px; color: #ccc;">shopping_cart</mat-icon>
-        <p>Vaša korpa je trenutno prazna.</p>
-        <button mat-stroked-button color="primary" routerLink="/">Vidi ponudu igračaka</button>
+        <p>Vasa korpa je trenutno prazna.</p>
+        <button mat-stroked-button color="primary" routerLink="/">Vidi ponudu igracaka</button>
     </mat-card-content>
 </mat-card>
 }
@@ -103,7 +101,7 @@
                 <td mat-cell *matCellDef="let order"> <span class="badge success">Pristiglo</span> </td>
             </ng-container>
             <ng-container matColumnDef="options">
-                <th mat-header-cell *matHeaderCellDef> Akcije </th>
+                <th mat-header-cell *matHeaderCellDef> Opcije </th>
                 <td mat-cell *matCellDef="let order">
                     @if (!order.rating) {
                     <button mat-icon-button color="accent" (click)="rateOrder(order)" title="Oceni igračku">
@@ -114,7 +112,57 @@
                         {{ order.rating }} <mat-icon style="font-size: 16px; vertical-align: middle;">star</mat-icon>
                     </span>
                     }
+                    <button mat-icon-button color="warn" (click)="removeOrder(order)" title="Ukloni">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                     <a [routerLink]="'/details/' + order.toyId" mat-button>Detalji</a>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card-content>
+</mat-card>
+}
+@if(getCanceledOrders().length > 0) {
+<mat-card class="mb-3 cancelled-card">
+    <mat-card-header>
+        <mat-card-title>Otkazane igračke</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <table mat-table [dataSource]="getCanceledOrders()" class="mat-elevation-z8">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Naziv </th>
+                <td mat-cell *matCellDef="let order" style="text-decoration: line-through; color: gray;"> {{order.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef> Tip </th>
+                <td mat-cell *matCellDef="let order"> {{getTypeName(order)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="targetGroup">
+                <th mat-header-cell *matHeaderCellDef> Namenjeno </th>
+                <td mat-cell *matCellDef="let order"> {{order.targetGroup}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="count">
+                <th mat-header-cell *matHeaderCellDef> Kom. </th>
+                <td mat-cell *matCellDef="let order"> {{order.count}} </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef> Cena </th>
+                <td mat-cell *matCellDef="let order"> {{order.price}} </td>
+            </ng-container>
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let order"> <span class="badge danger">Otkazano</span> </td>
+            </ng-container>
+            <ng-container matColumnDef="options">
+                <th mat-header-cell *matHeaderCellDef> Opcije </th>
+                <td mat-cell *matCellDef="let order"> 
+                    <a [routerLink]="'/details/' + order.toyId" mat-button>Pogledaj ponovo</a>
                 </td>
             </ng-container>
 

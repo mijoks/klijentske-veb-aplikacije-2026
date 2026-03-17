@@ -24,7 +24,7 @@
                 </mat-form-field>
                 <mat-form-field class="full-width">
                     <mat-label>Favorite Toy</mat-label>
-                    <mat-select [(ngModel)]="activeUser!.toy">
+                    <mat-select [(ngModel)]="activeUser!.toy" (ngModelChange)="filterRecommendations()">
                         @for (toy of toys(); track toy.toyId) {
                         <mat-option [value]="toy.name">{{toy.name}}</mat-option>
                         }
